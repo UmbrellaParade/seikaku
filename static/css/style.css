@@ -63,7 +63,8 @@ body {
 .scroll-hint {
   position: absolute;
   bottom: 2rem;
-  right: 9%;
+  left: 50%;
+  transform: translateX(-50%);
   width: 72px;
   height: 72px;
   border-radius: 50%;
@@ -85,8 +86,8 @@ body {
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(-10px); }
 }
 
 /* ===== CONTAINER ===== */
