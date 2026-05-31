@@ -461,6 +461,76 @@ body {
   font-size: 0.95rem;
 }
 
+/* ===== INSIGHT ===== */
+.result-insight {
+  background: rgba(8, 5, 18, 0.8);
+  border-left: 3px solid #5a3d8a;
+  border-radius: 0 10px 10px 0;
+  padding: 1.2rem 1.4rem;
+  line-height: 2.1;
+  font-size: 0.92rem;
+  color: #c9b8e8;
+}
+
+.result-insight--soft {
+  border-left-color: #3a5a3a;
+  color: #a8c8a8;
+}
+
+/* ===== COMPATIBILITY CARDS ===== */
+.compat-card {
+  background: rgba(14, 10, 30, 0.9);
+  border: 1px solid #3a2a5a;
+  border-radius: 14px;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.compat-header {
+  padding: 0.9rem 1.2rem;
+  background: rgba(40, 20, 70, 0.6);
+  border-bottom: 1px solid #3a2a5a;
+}
+
+.compat-name {
+  color: #d4a8ff;
+  font-size: 1.05rem;
+  letter-spacing: 0.1em;
+}
+
+.compat-body {
+  padding: 1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.compat-item-detail {
+  font-size: 0.88rem;
+  line-height: 1.8;
+}
+
+.compat-label {
+  display: block;
+  color: #8a7aaa;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+
+.compat-item-detail p {
+  color: #c9b8e8;
+  margin: 0;
+}
+
+.compat-caution .compat-label {
+  color: #8a7a5a;
+}
+
+.compat-caution p {
+  color: #c8b888;
+}
+
 /* ===== BACK BUTTON ===== */
 .back-btn {
   display: block;

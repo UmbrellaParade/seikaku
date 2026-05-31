@@ -71,16 +71,56 @@
       </div>
     </div>
 
+    <!-- 強み詳細 -->
+    {% if type_data.strength_detail %}
+    <div class="result-section">
+      <h2 class="section-title">✨ あなたの強みについて、もう少し</h2>
+      <div class="result-insight">{{ type_data.strength_detail }}</div>
+    </div>
+    {% endif %}
+
+    <!-- 課題詳細 -->
+    {% if type_data.challenge_detail %}
+    <div class="result-section">
+      <h2 class="section-title">🌱 気づきのきっかけに</h2>
+      <div class="result-insight result-insight--soft">{{ type_data.challenge_detail }}</div>
+    </div>
+    {% endif %}
+
     <!-- 相性の良い種族 -->
     <div class="result-section">
       <h2 class="section-title">💞 相性の良い種族</h2>
-      <div class="compatibility-row">
-        {% for c in type_data.compatibility %}
-        <div class="compat-item">
-          <span class="compat-name">{{ c }}</span>
+      {% if type_data.compatibility_detail %}
+        {% for c in type_data.compatibility_detail %}
+        <div class="compat-card">
+          <div class="compat-header">
+            <span class="compat-name">{{ c.name }}</span>
+          </div>
+          <div class="compat-body">
+            <div class="compat-item-detail">
+              <span class="compat-label">🤝 なぜ相性がいいのか</span>
+              <p>{{ c.reason }}</p>
+            </div>
+            <div class="compat-item-detail">
+              <span class="compat-label">✨ さらに仲良くなるには</span>
+              <p>{{ c.improve }}</p>
+            </div>
+            <div class="compat-item-detail compat-caution">
+              <span class="compat-label">⚠️ 気をつけたいこと＆対策</span>
+              <p>{{ c.caution }}</p>
+            </div>
+          </div>
         </div>
         {% endfor %}
-      </div>
+      {% else %}
+        <div class="compatibility-row">
+          {% for c in type_data.compatibility %}
+          <div class="compat-item">
+            <span class="compat-name">{{ c }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      {% endif %}
     </div>
 
     <!-- 一言メッセージ -->
