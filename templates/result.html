@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>診断結果 | 鏡よ鏡、私はダ～レ？ | Umbrella Parade</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div class="hero hero--result">
+    <img class="hero-bg" src="{{ url_for('static', filename='images/hero_pc.png') }}" alt="鏡よ鏡、私はダ～レ？">
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="container">
+
+    <p class="result-name">
+      {% if name and name != "あなた" %}
+        <span>{{ name }}</span> さんの診断結果
+      {% else %}
+        あなたの診断結果
+      {% endif %}
+      {% if birthday %}
+        <br><small style="font-size:0.8em; color:#5a4a7a;">{{ birthday }}</small>
+      {% endif %}
+    </p>
+
+    <div class="result-card">
+      <div class="result-icon">{{ type_data.icon }}</div>
+      <p class="result-flavor">あなたの魂の正体は</p>
+      <h1 class="result-type"><span>{{ result_type }}</span></h1>
+      <p class="result-subtitle">― {{ type_data.subtitle }} ―</p>
+
+      <div class="result-description">
+        {{ type_data.description }}
+      </div>
+
+      <div class="result-details">
+        <div class="detail-item">
+          <span class="detail-label">✦ 強み</span>
+          <span>{{ type_data.strength }}</span>
+        </div>
+      </div>
+
+      <div class="result-message">
+        「{{ type_data.message }}」
+      </div>
+    </div>
+
+    <a href="/" class="back-btn">🪞 もう一度、鏡を覗く</a>
+
+  </div>
+
+</body>
+</html>

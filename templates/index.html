@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>鏡よ鏡、私はダ～レ？ | Umbrella Parade</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+  <div class="hero">
+    <img class="hero-bg" src="{{ url_for('static', filename='images/hero_pc.png') }}" alt="鏡よ鏡、私はダ～レ？">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="scroll-hint">▼ scroll</span>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="intro-text">
+      <p class="intro-catch">🪞 鏡の回廊へ、ようこそ 🪞</p>
+      <p>あなたの魂が本当は何者なのか、<br>16の問いが映し出します。<br><br>正直に答えてください。<br>鏡は、嘘をつかないから。</p>
+    </div>
+
+    <form action="/result" method="POST">
+
+      <!-- 名前・生年月日 -->
+      <div class="input-section">
+        <p class="input-section-title">✦ あなたのことを教えてください</p>
+
+        <div class="input-row">
+          <label class="input-label" for="name">名前（あだ名でもOK）</label>
+          <input class="text-input" type="text" id="name" name="name" placeholder="例：ゆい、パレードちゃん" maxlength="20">
+        </div>
+
+        <div class="input-row">
+          <label class="input-label">生年月日</label>
+          <div class="birthday-row">
+            <div class="select-wrapper">
+              <select name="birth_year">
+                <option value="" disabled selected>年</option>
+                {% for y in range(2010, 1939, -1) %}
+                <option value="{{ y }}">{{ y }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <span>年</span>
+            <div class="select-wrapper">
+              <select name="birth_month">
+                <option value="" disabled selected>月</option>
+                {% for m in range(1, 13) %}
+                <option value="{{ m }}">{{ m }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <span>月</span>
+            <div class="select-wrapper">
+              <select name="birth_day">
+                <option value="" disabled selected>日</option>
+                {% for d in range(1, 32) %}
+                <option value="{{ d }}">{{ d }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <span>日</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 質問 -->
+      {% for q in questions %}
+      <div class="question-block">
+        <p class="question-number">Q {{ loop.index }} / {{ questions|length }}</p>
+        <label class="question-label">{{ q.text }}</label>
+        <div class="options">
+          {% for opt in q.options %}
+          <label class="option-label">
+            <input type="radio" name="{{ q.id }}" value="{{ opt.value }}" required>
+            <span>{{ opt.label }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+
+      <button type="submit" class="submit-btn">🪞 鏡よ、映して 🪞</button>
+    </form>
+  </div>
+
+</body>
+</html>
