@@ -17,19 +17,16 @@ body {
 .hero {
   position: relative;
   width: 100%;
-  height: 100vh;
   overflow: hidden;
 }
 
 .hero.hero--result {
-  height: 52vh;
+  max-height: 52vh;
 }
 
 .hero-bg {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
+  height: auto;
   display: block;
 }
 
