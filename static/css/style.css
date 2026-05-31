@@ -387,6 +387,80 @@ body {
   font-style: italic;
 }
 
+/* ===== RESULT TAGS ===== */
+.result-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1.2rem;
+}
+
+.tag {
+  border: 1px solid #5a3d8a;
+  border-radius: 20px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.78rem;
+  color: #c9a8ff;
+  letter-spacing: 0.05em;
+}
+
+/* ===== RESULT SECTIONS ===== */
+.result-section {
+  margin-bottom: 1.5rem;
+}
+
+.section-title {
+  font-size: 0.9rem;
+  color: #7a6aaa;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #2e2a4a;
+}
+
+.result-description {
+  text-align: left;
+  background: rgba(8, 5, 18, 0.8);
+  border-left: 3px solid #5a3d8a;
+  border-radius: 0 10px 10px 0;
+  padding: 1.2rem 1.4rem;
+  line-height: 2.1;
+  font-size: 0.92rem;
+}
+
+.result-description p {
+  margin-bottom: 0.8rem;
+}
+
+.detail-divider {
+  height: 1px;
+  background: #2e2a4a;
+  margin: 0.4rem 0;
+}
+
+/* ===== COMPATIBILITY ===== */
+.compatibility-row {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.compat-item {
+  background: rgba(18, 14, 36, 0.9);
+  border: 1px solid #3a2a5a;
+  border-radius: 12px;
+  padding: 0.8rem 1.2rem;
+  text-align: center;
+  flex: 1;
+  min-width: 80px;
+}
+
+.compat-name {
+  color: #c9a8ff;
+  font-size: 0.95rem;
+}
+
 /* ===== BACK BUTTON ===== */
 .back-btn {
   display: block;
