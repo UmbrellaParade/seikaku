@@ -201,15 +201,18 @@
       </div>
     </div>
 
-    <!-- シェアボタン -->
+    <!-- シェア・ダウンロード -->
     <div class="share-section">
-      <p class="share-label">📣 結果をシェアする</p>
+      <p class="share-label">📣 結果をシェア・保存する</p>
       <div class="share-buttons">
         <a class="share-btn share-x" href="{{ 'https://twitter.com/intent/tweet?text=' + (('【鏡よ鏡、私はダ～レ？】%0A' + (name if name and name != 'あなた' else 'あなた') + 'の魂の正体は…%0A%0A' + type_data.icon + '【' + result_type + '】%0A― ' + type_data.subtitle + ' ―%0A%0A%23鏡よ鏡私はダーレ %23UmbrellaParade%0A%0Ahttps://seikaku.umbrellaparade13.com') | urlencode) }}" target="_blank" rel="noopener">
           𝕏 でシェア
         </a>
         <button class="share-btn share-copy" onclick="copyResult()">
           📋 結果をコピー
+        </button>
+        <button class="share-btn share-download" onclick="downloadResult()">
+          📄 全文ダウンロード
         </button>
       </div>
     </div>
@@ -261,6 +264,92 @@
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     });
+
+    // 全文ダウンロード
+    function downloadResult() {
+      const name = `{{ name if name and name != 'あなた' else 'あなた' }}`;
+      const birthday = `{{ birthday }}`;
+      const resultType = `{{ result_type }}`;
+      const subtitle = `{{ type_data.subtitle }}`;
+      const icon = `{{ type_data.icon }}`;
+
+      let text = `╔══════════════════════════════════╗\n`;
+      text += `║  鏡よ鏡、私はダ～レ？ 診断結果  ║\n`;
+      text += `║        Umbrella Parade           ║\n`;
+      text += `╚══════════════════════════════════╝\n\n`;
+
+      if (name !== 'あなた') text += `【診断者】${name}\n`;
+      if (birthday) text += `【生年月日】${birthday}\n`;
+      text += `\n`;
+
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `${icon} あなたの魂の正体は\n\n`;
+      text += `【 ${resultType} 】\n`;
+      text += `― ${subtitle} ―\n`;
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+
+      text += `■ あなたという存在\n`;
+      text += `{{ type_data.description | replace('\n\n', '\n') }}\n\n`;
+
+      text += `■ 強み\n{{ type_data.strength }}\n\n`;
+      text += `■ 課題\n{{ type_data.weakness }}\n\n`;
+
+      {% if type_data.strength_detail %}
+      text += `■ あなたの強みについて、もう少し\n{{ type_data.strength_detail }}\n\n`;
+      {% endif %}
+
+      {% if type_data.challenge_detail %}
+      text += `■ 気づきのきっかけに\n{{ type_data.challenge_detail }}\n\n`;
+      {% endif %}
+
+      {% if type_data.compatibility_detail %}
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `■ 相性の良い種族\n`;
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      {% for c in type_data.compatibility_detail %}
+      text += `\n【 {{ c.name }} 】\n`;
+      text += `◎ なぜ相性がいいのか\n{{ c.reason }}\n\n`;
+      text += `◎ さらに仲良くなるには\n{{ c.improve }}\n\n`;
+      text += `◎ 気をつけたいこと＆対策\n{{ c.caution }}\n\n`;
+      {% endfor %}
+      {% endif %}
+
+      {% if life_info and life_info.life_areas %}
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `■ あなたの人生の各領域\n`;
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+      {% for key, area in life_info.life_areas.items() %}
+      text += `【 {{ area.title }} 】\n{{ area.description }}\n\n💡 ヒント：{{ area.hint }}\n\n`;
+      {% endfor %}
+      {% endif %}
+
+      {% if life_info and life_info.character_messages %}
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `■ キャラクターからのメッセージ\n`;
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+      text += `【ヴェル13世】\n「{{ life_info.character_messages.vel }}」\n\n`;
+      text += `【カーラ・マンソン】\n「{{ life_info.character_messages.carla }}」\n\n`;
+      text += `【アマモリ】\n「{{ life_info.character_messages.amamori }}」\n\n`;
+      {% endif %}
+
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `■ 鏡からのメッセージ\n`;
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+      text += `「{{ type_data.message }}」\n\n`;
+
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+      text += `鏡よ鏡、私はダ～レ？\nhttps://seikaku.umbrellaparade13.com\n`;
+      text += `Umbrella Parade\n`;
+      text += `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `鏡よ鏡_${resultType}_診断結果.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
 
     // 結果コピー
     function copyResult() {

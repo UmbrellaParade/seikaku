@@ -790,6 +790,12 @@ body {
   border: 1px solid #5a3d8a;
 }
 
+.share-download {
+  background: rgba(20, 40, 60, 0.8);
+  color: #a8c8ff;
+  border: 1px solid #3a5a8a;
+}
+
 /* ===== BACK BUTTON ===== */
 .back-btn {
   display: block;
