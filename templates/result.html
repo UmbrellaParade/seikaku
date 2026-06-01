@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>診断結果 | 鏡よ鏡、私はダ～レ？ | Umbrella Parade</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    :root {
+      --species-color: {{ type_data.color }};
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, {{ type_data.color }}18 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .container { position: relative; z-index: 1; }
+  </style>
 </head>
 <body>
 
@@ -187,9 +201,88 @@
       </div>
     </div>
 
+    <!-- シェアボタン -->
+    <div class="share-section">
+      <p class="share-label">📣 結果をシェアする</p>
+      <div class="share-buttons">
+        <a class="share-btn share-x" href="{{ 'https://twitter.com/intent/tweet?text=' + (('【鏡よ鏡、私はダ～レ？】%0A' + (name if name and name != 'あなた' else 'あなた') + 'の魂の正体は…%0A%0A' + type_data.icon + '【' + result_type + '】%0A― ' + type_data.subtitle + ' ―%0A%0A%23鏡よ鏡私はダーレ %23UmbrellaParade%0A%0Ahttps://seikaku.umbrellaparade13.com') | urlencode) }}" target="_blank" rel="noopener">
+          𝕏 でシェア
+        </a>
+        <button class="share-btn share-copy" onclick="copyResult()">
+          📋 結果をコピー
+        </button>
+      </div>
+    </div>
+
     <a href="/" class="back-btn">🪞 もう一度、鏡を覗く</a>
 
   </div>
+
+  <!-- パーティクルエフェクト -->
+  <canvas id="particles" style="position:fixed;inset:0;pointer-events:none;z-index:0;"></canvas>
+
+  <script>
+    // パーティクル
+    const canvas = document.getElementById('particles');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const color = '{{ type_data.color }}';
+    const particles = [];
+    for (let i = 0; i < 40; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 0.5,
+        speed: Math.random() * 0.4 + 0.1,
+        alpha: Math.random() * 0.4 + 0.1,
+        drift: (Math.random() - 0.5) * 0.3
+      });
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = color + Math.floor(p.alpha * 255).toString(16).padStart(2, '0');
+        ctx.fill();
+        p.y -= p.speed;
+        p.x += p.drift;
+        if (p.y < -5) { p.y = canvas.height + 5; p.x = Math.random() * canvas.width; }
+        if (p.x < -5 || p.x > canvas.width + 5) p.x = Math.random() * canvas.width;
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // 結果コピー
+    function copyResult() {
+      const text = `【鏡よ鏡、私はダ～レ？】\n{{ (name if name and name != 'あなた' else 'あなた') }}の魂の正体は…\n\n{{ type_data.icon }}【{{ result_type }}】\n― {{ type_data.subtitle }} ―\n\n#鏡よ鏡私はダーレ #UmbrellaParade\nhttps://seikaku.umbrellaparade13.com`;
+      navigator.clipboard.writeText(text).then(() => {
+        const btn = document.querySelector('.share-copy');
+        btn.textContent = '✅ コピーしました！';
+        setTimeout(() => btn.textContent = '📋 結果をコピー', 2000);
+      });
+    }
+
+    // 結果カードのふわっと登場
+    document.querySelectorAll('.result-section, .result-card').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = `opacity 0.6s ease ${i * 0.1}s, transform 0.6s ease ${i * 0.1}s`;
+      setTimeout(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, 100);
+    });
+  </script>
 
 </body>
 </html>

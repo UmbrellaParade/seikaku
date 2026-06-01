@@ -88,5 +88,35 @@
     </form>
   </div>
 
+  <!-- 診断中オーバーレイ -->
+  <div class="mirror-overlay" id="mirrorOverlay">
+    <div class="mirror-content">
+      <div class="mirror-frame">
+        <div class="mirror-glass">
+          <div class="mirror-fog"></div>
+          <div class="mirror-text">
+            <p class="mirror-loading-text">鏡が<br>映し出している…</p>
+          </div>
+        </div>
+      </div>
+      <p class="mirror-sub">あなたの魂の正体を<br>探しています</p>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('form').addEventListener('submit', function(e) {
+      // バリデーション確認（ブラウザのデフォルトに任せる前にオーバーレイ表示）
+      const radios = document.querySelectorAll('input[type="radio"]');
+      const groups = {};
+      radios.forEach(r => { groups[r.name] = groups[r.name] || false; if(r.checked) groups[r.name] = true; });
+      const allAnswered = Object.values(groups).every(v => v);
+      if (!allAnswered) return;
+
+      setTimeout(() => {
+        document.getElementById('mirrorOverlay').classList.add('active');
+      }, 10);
+    });
+  </script>
+
 </body>
 </html>
