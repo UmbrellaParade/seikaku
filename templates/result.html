@@ -123,6 +123,62 @@
       {% endif %}
     </div>
 
+    <!-- 8項目診断 -->
+    {% if life_info and life_info.life_areas %}
+    <div class="result-section">
+      <h2 class="section-title">🔮 あなたの人生の各領域</h2>
+      <div class="life-areas-grid">
+        {% set area_icons = {"love": "❤️", "health": "💚", "work": "⚡", "money": "💰", "friendship": "🤝", "communication": "💬", "stress": "🌊", "career": "🌟"} %}
+        {% for key, area in life_info.life_areas.items() %}
+        <div class="life-area-card">
+          <div class="life-area-header">
+            <span class="life-area-icon">{{ area_icons.get(key, "✨") }}</span>
+            <span class="life-area-title">{{ area.title }}</span>
+          </div>
+          <div class="life-area-body">
+            <p class="life-area-desc">{{ area.description }}</p>
+            <div class="life-area-hint">
+              <span class="hint-label">💡 気づきのヒント</span>
+              <p>{{ area.hint }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- キャラクターメッセージ -->
+    {% if life_info and life_info.character_messages %}
+    <div class="result-section">
+      <h2 class="section-title">💌 キャラクターからのメッセージ</h2>
+
+      <div class="char-message-card char-vel">
+        <div class="char-header">
+          <span class="char-name">ヴェル13世</span>
+          <span class="char-sub">Umbrella Parade</span>
+        </div>
+        <p class="char-msg">「{{ life_info.character_messages.vel }}」</p>
+      </div>
+
+      <div class="char-message-card char-carla">
+        <div class="char-header">
+          <span class="char-name">カーラ・マンソン</span>
+          <span class="char-sub">Umbrella Parade</span>
+        </div>
+        <p class="char-msg">「{{ life_info.character_messages.carla }}」</p>
+      </div>
+
+      <div class="char-message-card char-amamori">
+        <div class="char-header">
+          <span class="char-name">アマモリ</span>
+          <span class="char-sub">記録室</span>
+        </div>
+        <p class="char-msg">「{{ life_info.character_messages.amamori }}」</p>
+      </div>
+    </div>
+    {% endif %}
+
     <!-- 一言メッセージ -->
     <div class="result-section">
       <h2 class="section-title">🌙 鏡からのメッセージ</h2>

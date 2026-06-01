@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session
 from types_data import pick_questions, TYPES, TYPE_MAPPING, SPECIAL_TYPES
+from life_data import LIFE_DATA
 import random
 
 app = Flask(__name__)
@@ -71,12 +72,15 @@ def result():
     result_type = calculate_result(answers, questions)
     type_data = TYPES.get(result_type, TYPES["ハーフ"])
 
+    life_info = LIFE_DATA.get(result_type, {})
+
     return render_template(
         "result.html",
         name=name,
         birthday=birthday,
         result_type=result_type,
         type_data=type_data,
+        life_info=life_info,
     )
 
 

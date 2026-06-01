@@ -531,6 +531,119 @@ body {
   color: #c8b888;
 }
 
+/* ===== LIFE AREAS ===== */
+.life-areas-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.life-area-card {
+  background: rgba(14, 10, 30, 0.9);
+  border: 1px solid #3a2a5a;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.life-area-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.2rem;
+  background: rgba(40, 20, 70, 0.5);
+  border-bottom: 1px solid #3a2a5a;
+}
+
+.life-area-icon {
+  font-size: 1.2rem;
+}
+
+.life-area-title {
+  color: #d4a8ff;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+}
+
+.life-area-body {
+  padding: 1rem 1.2rem;
+}
+
+.life-area-desc {
+  color: #c9b8e8;
+  font-size: 0.88rem;
+  line-height: 2;
+  margin-bottom: 0.8rem;
+}
+
+.life-area-hint {
+  background: rgba(30, 20, 60, 0.6);
+  border-left: 2px solid #7a5aaa;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0 8px 8px 0;
+}
+
+.hint-label {
+  display: block;
+  color: #7a6aaa;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+
+.life-area-hint p {
+  color: #b8a8e8;
+  font-size: 0.85rem;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* ===== CHARACTER MESSAGES ===== */
+.char-message-card {
+  background: rgba(14, 10, 30, 0.9);
+  border-radius: 14px;
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 0.8rem;
+  border-left: 4px solid #5a3d8a;
+}
+
+.char-vel {
+  border-left-color: #8a4d3a;
+}
+
+.char-carla {
+  border-left-color: #3a4d8a;
+}
+
+.char-amamori {
+  border-left-color: #3a6a5a;
+}
+
+.char-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.7rem;
+}
+
+.char-name {
+  color: #d4a8ff;
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+}
+
+.char-sub {
+  color: #5a4a7a;
+  font-size: 0.75rem;
+}
+
+.char-msg {
+  color: #c9b8e8;
+  font-size: 0.88rem;
+  line-height: 2;
+  font-style: italic;
+  margin: 0;
+}
+
 /* ===== BACK BUTTON ===== */
 .back-btn {
   display: block;
