@@ -205,7 +205,7 @@
     <div class="share-section">
       <p class="share-label">📣 結果をシェア・保存する</p>
       <div class="share-buttons">
-        <a class="share-btn share-x" href="{{ 'https://twitter.com/intent/tweet?text=' + (('【鏡よ鏡、私はダ～レ？】%0A' + (name if name and name != 'あなた' else 'あなた') + 'の魂の正体は…%0A%0A' + type_data.icon + '【' + result_type + '】%0A― ' + type_data.subtitle + ' ―%0A%0A%23鏡よ鏡私はダーレ %23UmbrellaParade%0A%0Ahttps://seikaku.umbrellaparade13.com') | urlencode) }}" target="_blank" rel="noopener">
+        <a class="share-btn share-x" id="shareXBtn" href="#" target="_blank" rel="noopener">
           𝕏 でシェア
         </a>
         <button class="share-btn share-copy" onclick="copyResult()">
@@ -225,6 +225,17 @@
   <canvas id="particles" style="position:fixed;inset:0;pointer-events:none;z-index:0;"></canvas>
 
   <script>
+    // Xシェアリンクを正しく生成
+    (function() {
+      const name = `{{ (name if name and name != 'あなた' else 'あなた') | e }}`;
+      const icon = `{{ type_data.icon | e }}`;
+      const resultType = `{{ result_type | e }}`;
+      const subtitle = `{{ type_data.subtitle | e }}`;
+      const shareText = `【鏡よ鏡、私はダ～レ？】\n${name}の魂の正体は…\n\n${icon}【${resultType}】\n― ${subtitle} ―\n\n#鏡よ鏡私はダーレ #UmbrellaParade\n\nhttps://seikaku.umbrellaparade13.com`;
+      const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}`;
+      document.getElementById('shareXBtn').href = url;
+    })();
+
     // パーティクル
     const canvas = document.getElementById('particles');
     const ctx = canvas.getContext('2d');
